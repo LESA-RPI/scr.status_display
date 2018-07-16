@@ -9,8 +9,6 @@ import time
 from scipy import ndimage 
 from scipy.ndimage.interpolation import shift
 
-
-
 class TempChart:
     def __init__(self, master):
         self.master = master
@@ -64,7 +62,7 @@ class TempChart:
             self.Temp[x] = self.w.create_oval( 50+(xx*x)-4, yy-4, 50+(xx*x)+4, yy+4, fill = 'red', width = 0)
             self.CO2[x] = self.w.create_oval( 50+(xx*x)-4, ii-4, 50+(xx*x)+4, ii+4, fill = 'green', width = 0)
         
-    def UpdateTemp(self, self.T, CO):
+    def UpdateTemp(self, T, CO):
 
         if (time.time() - self.GlobalTime) > 900: #900 
             self.GlobalTime = time.time()
@@ -82,7 +80,7 @@ class TempChart:
                 self.w.coords(self.CO2[x], g, h, i, j)
                 
        
-        Y_coord=-31.104*self.T+779.8765           
+        Y_coord=-31.104*T+779.8765           
         self.w.coords(self.Temp[96], 50+(9.5*96)-4, Y_coord-4, 50+(9.5*96)+4, Y_coord+4)
         
         Y_coord=-0.31*CO+344           
