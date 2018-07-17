@@ -8,64 +8,53 @@ from dateutil import tz
 from PIL import ImageTk, Image
 from pytz import timezone, utc
 
-import time
-import sys
+import time, sys
 
 class WEATHER:
-    def __init__(self, master):
-        self.master = master
-        
-        self.val_C  = StringVar() #todays date
-        self.val_T  = StringVar() #Temperature
-        self.val_P  = StringVar() #Preasure
-        self.val_H  = StringVar() #Humidity
-        self.val_SR = StringVar() #Sunrise
-        self.val_SS = StringVar() #Sunset
 
-        #self.Conditions (Temperature, Humadity and so on) Values
+    def __init__(self, master):
+
+        self.master = master
+
+        # Values
+        self.vals = [StringVar() for i in range(6)]
+        self.vals[0].set('Local current time: %s'%time.asctime(time.localtime(time.time())))
+        self.vals[1].set('Temperature: F')
+        self.vals[2].set('Barometer: in')
+        self.vals[3].set('Humidity: %')
+        self.vals[4].set('Sunrise')
+        self.vals[5].set('Sunset')
+
+        # Frames
         self.Conditions_Frame = LabelFrame(master, bg = 'white', text = 'Troy, NY, Weather for Today', font = ("Helvetica", 16), width = 600, height = 200)
         self.Conditions_Frame.pack_propagate(0)
         self.Conditions_Frame.pack(fill = None, expand = False, side = LEFT, anchor = NW, padx = 10, pady = 10)
-        
         self.Cond_Values = Frame(self.Conditions_Frame, bg = 'white', bd = 0, padx = 10)
         self.Cond_Values.pack(fill = None, expand = False, side = LEFT, anchor = W)
         
-        #Icon related        
+        # Icon related        
         self.Cond_Icon = Frame(self.Conditions_Frame, bg = 'white', bd = 2)
         self.Cond_Icon.pack(side = TOP)
         self.ImgIcon = ImageTk.PhotoImage(Image.open('JPG/alien.jpg'))
         self.panel = Label(self.Cond_Icon, image = self.ImgIcon, borderwidth=0)
         self.panel.pack()
-        
-        self.val_C.set('Local current time: %s'%time.asctime(time.localtime(time.time())))
-        self.val_T.set('Temperature: F')
-        self.val_P.set('Barometer: in')
-        self.val_H.set('Humidity: %')
-        self.val_SR.set('Sunrise')
-        self.val_SS.set('Sunset')
-       
-        self.Label_C  = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_C )
-        self.Label_T  = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_T )
-        self.Label_P  = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_P )
-        self.Label_H  = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_H )
-        self.Label_SR = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_SR)
-        self.Label_SS = Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.val_SS)
-       
-        self.Label_C.pack(anchor = W)
-        self.Label_T.pack(anchor = W)
-        self.Label_P.pack(anchor = W)
-        self.Label_H.pack(anchor = W)
-        self.Label_SR.pack(anchor = W)
-        self.Label_SS.pack(anchor = W)
-       
-        
+
+        # Labels
+        self.labels = []
+        for i in range(len(self.vals)):
+            self.labels.append(Label(self.Cond_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.vals[i] ))
+            self.labels[i].pack(anchor = W)
+
     def update(self, T, P, H, SS, SR, I):
 
-        self.val_C.set('Local current time: %s'%time.asctime(time.localtime(time.time())))
-        self.val_T.set('Temperature: %s %cF '%(T, unichr(176)))
-        self.val_P.set('Barometer: %s mb'%P)
-        self.val_H.set('Humidity: %s %%'%H)
-        self.val_SR.set('Sunrise: %s'%SR)
-        self.val_SS.set('Sunset: %s'%SS)
+        self.vals[0].set('Local current time: %s'%time.asctime(time.localtime(time.time())))
+        self.vals[1].set('Temperature: %s %cF '%(T, unichr(176)))
+        self.vals[2].set('Barometer: %s mb'%P)
+        self.vals[3].set('Humidity: %s %%'%H)
+        self.vals[4].set('Sunrise: %s'%SR)
+        self.vals[5].set('Sunset: %s'%SS)
+
+        self.ImgIcon = ImageTk.PhotoImage(Image.open('JPG/'+I+'.jpg'))
+        self.panel.config(image = self.ImgIcon)
             
         self.master.update()
