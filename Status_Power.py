@@ -11,7 +11,7 @@ class POWER:
         self.vals = [StringVar() for i in range(5)]
         self.vals[0].set('RMS Current: mA')
         self.vals[1].set('RMS Voltage: V')
-        self.vals[2].set('Active Poewr: W')
+        self.vals[2].set('Active Power: W')
         self.vals[3].set('Apparent Power: W')
         self.vals[4].set('Power Factor: ')
 
@@ -29,6 +29,7 @@ class POWER:
             self.labels[i].pack(anchor = W)
         
     def update(self, C, V, Act, App, P):
+        
         self.vals[0].set('  RMS Current: %s00 mA ' % C)
         self.vals[1].set('  RMS Voltage: %s V'     % V)
         self.vals[2].set('  Active Power: %s W'    % Act)

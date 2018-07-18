@@ -18,12 +18,9 @@ class OCCUPANCY:
         self.val_Lyi.set('Number of lying people:')        
         self.pro_sta.set('Projector is:')
         
-
         self.Occupancy_Frame = LabelFrame(master, bg = 'white', text = 'Room Status', font = ("Helvetica", 16), width = 600, heigh = 200)
         self.Occupancy_Frame.pack_propagate(0)
         self.Occupancy_Frame.pack(fill = None, expand = False, side = LEFT, anchor = NW, padx = 10, pady = 10)
-
-	
 
         self.Occupancy_Values = Frame(self.Occupancy_Frame, bg = 'white', bd = 0, padx = 10)
         self.Occupancy_Values.pack(fill = None, expand = False, side = LEFT, anchor = W)
@@ -35,7 +32,6 @@ class OCCUPANCY:
         
         self.Label_Proj  = Label(self.Occupancy_Values, bg = 'white', font = ("Helvetica", 14), textvariable = self.pro_sta )
         
-
         self.Label_Tota.pack(anchor = W)
         self.Label_Sitt.pack(anchor = W)
         self.Label_Stan.pack(anchor = W)
@@ -50,10 +46,10 @@ class OCCUPANCY:
     	self.panel.pack()
     	
     def SetOcu(self, Total, Sitting, Standing, Lying): 
-        self.val_Tot.set('Total number of people: %d'%Total)
+        self.val_Tot.set('Total number of people: %d'   %Total)
         self.val_Sit.set('Number of standing people: %d'%Standing)
-        self.val_Sta.set('Number of sitting people: %d'%Sitting)
-        self.val_Lyi.set('Number of lying people: %d'%Lying)
+        self.val_Sta.set('Number of sitting people: %d' %Sitting)
+        self.val_Lyi.set('Number of lying people: %d'   %Lying)
         if Lying > 0: 
             self.ImgIcon = ImageTk.PhotoImage(Image.open('JPG/emergency.jpg'))
             self.panel.config(image = self.ImgIcon)

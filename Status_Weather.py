@@ -2,12 +2,7 @@
 # to be able use this ubuntu should have installed weather-api
 #pip install weather-api
 from Tkinter import *
-from pyowm import OWM
-from datetime import datetime
-from dateutil import tz
 from PIL import ImageTk, Image
-from pytz import timezone, utc
-
 import time, sys
 
 class WEATHER:
@@ -46,15 +41,15 @@ class WEATHER:
             self.labels[i].pack(anchor = W)
 
     def update(self, T, P, H, SS, SR, I):
-
-        self.vals[0].set('Local current time: %s'%time.asctime(time.localtime(time.time())))
-        self.vals[1].set('Temperature: %s %cF '%(T, unichr(176)))
-        self.vals[2].set('Barometer: %s mb'%P)
-        self.vals[3].set('Humidity: %s %%'%H)
-        self.vals[4].set('Sunrise: %s'%SR)
-        self.vals[5].set('Sunset: %s'%SS)
+        
+        self.vals[0].set('Local current time: %s'% time.asctime(time.localtime(time.time())))
+        self.vals[1].set('Temperature: %s %cF '  % (T, unichr(176)))
+        self.vals[2].set('Barometer: %s mb'      % P)
+        self.vals[3].set('Humidity: %s %%'       % H)
+        self.vals[4].set('Sunrise: %s'           % SR)
+        self.vals[5].set('Sunset: %s'            % SS)
 
         self.ImgIcon = ImageTk.PhotoImage(Image.open('JPG/'+I+'.jpg'))
         self.panel.config(image = self.ImgIcon)
-            
+
         self.master.update()

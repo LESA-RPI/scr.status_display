@@ -23,15 +23,23 @@ def SetPower():
 def SetHVAC():
     return updateModule('hvac', ['data'])
 
+@app.route('/Status_COS', methods=['POST'])
+def SetCOS():
+    return updateModule('cos', ['data'])
+
+@app.route('/Status_TOF', methods=['POST'])
+def SetTOF():
+    return updateModule('tof', ['data'])
+
+@app.route('/Status_TempChart', methods=['POST'])
+def SetTempChart():
+    return updateModule('tempchart', ['data'])
+
 def updateModule(name, items):
-    arguments = []
-    for item in items:
-        if not item in request.json:
-            abort(400)
-        arguments.append(request.json[item])
+    arguments = [request.json[item] for item in items]
     display.frames[name].update(*arguments)
     return jsonify(request.json), 202
 
 if __name__ == '__main__':
     display.root.update()
-    app.run(host="192.168.0.61", port = 5000)
+    app.run(host="127.0.0.1", port = 5000)

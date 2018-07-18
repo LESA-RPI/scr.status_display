@@ -8,9 +8,6 @@ import numpy as np
 import scipy
 from scipy import ndimage 
 
-
-
-
 class COS:
     def __init__(self, master):
         self.master = master
@@ -18,12 +15,11 @@ class COS:
         self.Blind         = [[0 for x in range( 2)] for y in range( 2)]
         self.Blind_value   = [[0 for x in range( 2)] for y in range( 4)]
 
-        ##TOF Frame
+        # TOF Frame
         self.COS_Frame = LabelFrame(master, bg = 'white', text = 'Color sensor readings', font = ("Helvetica", 16))
         self.COS_Frame.pack(side = LEFT, anchor = W, padx = 10, pady = 10)
 
-
-    ##TOF self.plot_widget_TOF
+        # TOF self.plot_widget_TOF
         fig_COS = plt.figure(1, facecolor = 'white', figsize = (11.5, 4))
         self.canvas_COS = FigureCanvasTkAgg(fig_COS, master = self.COS_Frame)
         self.canvas_COS.get_tk_widget().configure(background = 'white', highlightcolor = 'white', highlightbackground = 'white')
@@ -41,17 +37,13 @@ class COS:
         self.wb.grid(row = 3 ,column = 2, sticky=W+S)
         self.wc = Canvas(self.COS_Frame, width=100, height=50, bg = 'white', bd=0, highlightthickness=0)
         self.wc.grid(row = 3 ,column = 3, sticky=W+S)
-        
-        
-        
-        
+             
         self.w3 = Canvas(self.COS_Frame, width=100, height=50, bg = 'white', bd=0, highlightthickness=0)
         self.w3.grid(row = 3 ,column = 4, sticky=E+N)
         self.w4 = Canvas(self.COS_Frame, width=100, height=50, bg = 'white', bd=0, highlightthickness=0)
         self.w4.grid(row = 3 ,column = 5, sticky=W+N)
-
         
-        ## self.Blinders related
+        # Blinders related
         self.Blind[0][0] = self.w3.create_rectangle( 2, 0, 98, 25, width = 2)
         self.Blind[0][1] = self.w4.create_rectangle( 2, 0, 98, 25, width = 2)
         self.Blind[1][0] = self.w1.create_rectangle(25, 2, 50, 98, width = 2)
@@ -88,11 +80,6 @@ class COS:
         self.w3.itemconfig(self.Blind_value[0][0], text ="%d%%; %d%c"%(la, int(ta*1.8), unichr(176)))
         self.w4.itemconfig(self.Blind_value[1][0], text ="%d%%; %d%c"%(lb, int(tb*1.8), unichr(176)))
         
-        
-        
-        
-	
-
     def Plot_COS(self, B):
         B = np.asarray(B)
         B = B.reshape(5, 14, 3)

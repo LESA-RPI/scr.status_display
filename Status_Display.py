@@ -14,7 +14,7 @@ class Display():
 
 	def __init__(self):
 
-		# Implementation of GUI
+		# Creation of window
 		self.root = Tk()
 		self.root.attributes('-fullscreen', True)
 		self.root.configure(background = "White")
@@ -30,29 +30,23 @@ class Display():
 		self.Banner = Label(self.sections["banner"], image = self.LESA_b, borderwidth=0)
 		self.Banner.pack()
 
-		# Second Frame
+		# Top Section
 		self.sections["top"] = Frame(self.root, bg = 'white')
 		self.sections["top"].pack(side = TOP)
 
-		# Second Frame
+		# Middle Section
 		self.sections["middle"] = Frame(self.root, bg = 'white')
 		self.sections["middle"].pack(side = TOP)
 
-		# Third Frame
+		# Bottom Section
 		self.sections["bottom"] = Frame(self.root, bg = 'white')
 		self.sections["bottom"].pack(side = TOP)
 
-		self.frames["power"] = POWER(self.sections['top'])
-
-		self.frames["weather"] = WEATHER(self.sections['top'])
-
+		# Individual Frames
+		self.frames["power"]     = POWER(    self.sections['top'])
+		self.frames["weather"]   = WEATHER(  self.sections['top'])
 		self.frames["occupancy"] = OCCUPANCY(self.sections['top'])
-
-		self.frames["tof"] = TOF(self.sections['middle'])
-		self.frames["cos"] = COS(self.sections['middle'])
-
-		self.frames["hvac"] = HVAC(self.sections['bottom'])
+		self.frames["tof"]       = TOF(      self.sections['middle'])
+		self.frames["cos"]       = COS(      self.sections['middle'])
+		self.frames["hvac"]      = HVAC(     self.sections['bottom'])
 		self.frames["tempchart"] = TempChart(self.sections['bottom'])
-
-		# Other member variables
-		self.loop = 0

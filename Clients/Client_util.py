@@ -9,4 +9,4 @@ import SCR_COS_client  as cos_control
 import SCR_OctaLight_client  as light_control
 
 def post_request(name, data):
-	requests.post('http://192.168.0.61:5000/'+name, json=data)
+	requests.post('http://127.0.0.1:5000/'+name, json=data)

@@ -5,13 +5,12 @@ import matplotlib.image as mpimg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
-import scipy
-from scipy import ndimage 
 
 class HVAC:
 	def __init__(self, master):
 		self.master = master
 
+		# Member variables and HVAC objects
 		self.CeilingPlates = [[0 for x in range( 5)] for y in range(14)]
 		self.Lights		   = [ 0 for x in range(10)]
 		self.Heaters	   = [[0 for x in range( 2)] for y in range( 2)]
@@ -24,30 +23,21 @@ class HVAC:
 		self.Lights_val	   = [ 0 for x in range(10)]
 		self.Light_C	   = [[0 for x in range( 5)] for y in range(10)]
 		
+		# Main frame and cavas
 		self.HVAC_Frame = LabelFrame(master, bg = 'white', text = 'HVAC control', font = ("Helvetica", 16))
 		self.HVAC_Frame.pack(side = LEFT, anchor = W, padx = 10, pady = 10)
-		
 		self.w = Canvas(self.HVAC_Frame, width=800, height=250, bg='white', bd=0, highlightthickness=0)
 		self.w.pack()
 
-		self.HVAC_sens[0] = self.w.create_oval( 50,  0, 100, 20, fill = 'white')
-		self.HVAC_sens[1] = self.w.create_oval(300,220, 350,240, fill = 'white')
-		self.HVAC_sens[2] = self.w.create_oval(475,220, 525,240, fill = 'white')
-		self.HVAC_sens[3] = self.w.create_oval(700,  0, 750, 20, fill = 'white')
-		self.HVAC_sens[4] = self.w.create_oval(300,  0, 350, 20, fill = 'white')
-		self.HVAC_sens[5] = self.w.create_oval(450,  0, 500, 20, fill = 'white')
-		self.HVAC_sens[6] = self.w.create_oval(500,  0, 550, 20, fill = 'white')
+		# Sensor values
+		sens_coords = [(50, 0), (300, 220), (475, 220), (700, 0), (300, 0), (450, 0), (500, 0)]
+		default_sens_values = ["20C", "20C", "20C", "20C", "66C", "99%", "75p"]
+		for i in range(7):
+			x, y = sens_coords[i]
+			self.HVAC_sens[i] = self.w.create_oval(x,  y, x + 50, y + 20, fill = 'white')
+			self.HVAC_sens_val[i] = self.w.create_text(x + 25, y + 10, font="times 10", text = default_sens_values[i])
 		
-		self.HVAC_sens_val[0] = self.w.create_text( 75, 10, font="times 10", text = "20C")
-		self.HVAC_sens_val[1] = self.w.create_text(325,230, font="times 10", text = "20C")
-		self.HVAC_sens_val[2] = self.w.create_text(500,230, font="times 10", text = "20C")
-		self.HVAC_sens_val[3] = self.w.create_text(725, 10, font="times 10", text = "20C")
-		self.HVAC_sens_val[4] = self.w.create_text(325, 10, font="times 10", text = "66C")
-		self.HVAC_sens_val[5] = self.w.create_text(475, 10, font="times 10", text = "99%")
-		self.HVAC_sens_val[6] = self.w.create_text(525, 10, font="times 10", text = "75p")
-		
-		
-		# self.Heaters related
+		# Heaters related
 		self.Heaters[0][0] = self.w.create_rectangle(700, 225, 800, 250)
 		self.Heaters[0][1] = self.w.create_rectangle(600, 225, 700, 250)
 		self.Heaters[1][0] = self.w.create_rectangle(0,  25, 25, 125)
@@ -76,7 +66,6 @@ class HVAC:
 		# Init self.Lights	   
 		for i in range (0, 10):
 			self.w.itemconfig(self.Lights[i], fill = 'yellow')
-
 
 		# Init HVAC air
 		self.HVAC_HE[0] = self.w.create_rectangle(250, 100, 350, 140)
