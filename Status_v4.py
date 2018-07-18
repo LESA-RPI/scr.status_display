@@ -21,7 +21,7 @@ def SetPower():
 
 @app.route('/Status_HVAC', methods=['POST'])
 def SetHVAC():
-    return updateModule('hvac', ['data'])
+    return updateModule('hvac', ['temp', 'humidity', 'ep', 'co2'])
 
 @app.route('/Status_COS', methods=['POST'])
 def SetCOS():

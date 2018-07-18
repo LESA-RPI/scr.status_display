@@ -31,7 +31,7 @@ class HVAC:
 
 		# Sensor values
 		sens_coords = [(50, 0), (300, 220), (475, 220), (700, 0), (300, 0), (450, 0), (500, 0)]
-		default_sens_values = ["20C", "20C", "20C", "20C", "66C", "99%", "75p"]
+		default_sens_values = ["XX.XC"] * 5  + ["XX%", "XXp"]
 		for i in range(7):
 			x, y = sens_coords[i]
 			self.HVAC_sens[i] = self.w.create_oval(x,  y, x + 50, y + 20, fill = 'white')
@@ -79,46 +79,13 @@ class HVAC:
 		self.HVAC_value[0] = self.w.create_text(325, 120, font="Times 15 bold", text="XX%")
 		self.HVAC_value[1] = self.w.create_text(475, 120, font="Times 15 bold", text="XX%")
 		
-	def Set_HVACSens(self, T0, T1, T2, T3, T4, C, H):
-		self.w.itemconfig(self.HVAC_sens_val[0], text = "%.1f%cC"%(T0, unichr(176)))
-		self.w.itemconfig(self.HVAC_sens_val[1], text = "%.1f%cC"%(T1, unichr(176)))
-		self.w.itemconfig(self.HVAC_sens_val[2], text = "%.1f%cC"%(T2, unichr(176)))
-		self.w.itemconfig(self.HVAC_sens_val[3], text = "%.1f%cC"%(T3, unichr(176)))
-		self.w.itemconfig(self.HVAC_sens_val[4], text = "%.1f%cC"%(T4, unichr(176)))
-		self.w.itemconfig(self.HVAC_sens_val[5], text = "%.1f%%"% H)
-		self.w.itemconfig(self.HVAC_sens_val[6], text = "%.1fpp"% C)
-		
-	def Set_Heater_N(self, Heater_N):
-		self.w.coords(self.Heaters[0][0], Heater_N*2+600, 225, 800, 250) #Heater_N*2+
-		self.w.coords(self.Heaters[0][1], 600, 225, Heater_N*2+600, 250)
-		self.w.itemconfig(self.Heaters[0][1], fill = 'red')
-		self.w.itemconfig(self.Heaters[0][0], fill = 'orange red')
-		self.w.itemconfig(self.Heater_value[0], text="%d%%"%Heater_N)
-		
-	def Set_Heater_E(self, Heater_E):
-		self.w.coords(self.Heaters[1][1], 0,  25, 25, (100-Heater_E)*2+25)
-		self.w.coords(self.Heaters[1][0], 0, (100-Heater_E)*2+25, 25, 225)
-		self.w.itemconfig(self.Heaters[1][0], fill = 'red')
-		self.w.itemconfig(self.Heaters[1][1], fill = 'orange red')
-		self.w.itemconfig(self.Heater_value[1], text="%d%%"%Heater_E)
-		
-	def Set_HVAC_HE(self, Heater_Air_HE):
-		self.w.coords(self.HVAC_HE[0], 250, 100, Heater_Air_HE*1.5+250, 140)
-		self.w.coords(self.HVAC_HE[1], Heater_Air_HE*1.5+250, 100, 400, 140)
-		self.w.itemconfig(self.HVAC_value[0], text="%d%%"%Heater_Air_HE)
-	 
-	def Set_HVAC_AC(self, Heater_Air_AC):
-		self.w.coords(self.HVAC_AC[0], 400, 100, Heater_Air_AC*1.5+400, 140)
-		self.w.coords(self.HVAC_AC[1], Heater_Air_AC*1.5+400, 100, 550, 140)
-		self.w.itemconfig(self.HVAC_value[1], text="%d%%"%Heater_Air_AC)
-		
-	def update(self, light_data):
+	def update(self, temp, humidity, ep, co2):
 		# Init self.Lights	   
-		print(light_data)
-		for i in range (len(light_data)):
-			if light_data[i]:
-				self.w.itemconfig(self.Lights[i], fill = 'yellow')
-			else:
-				self.w.itemconfig(self.Lights[i], fill = 'white')
+		new_vals = [temp[0], temp[1], temp[2], temp[3], temp[4], humidity, co2]
+		for i in range(7):
+			self.w.itemconfigure(self.HVAC_sens_val[i], text = new_vals[i])
+		for i in range(2):
+			self.w.itemconfigure(self.Heater_value[i], text = ep[i+2])
+			self.w.itemconfigure(self.HVAC_value[i],   text = ep[i])
 
 		self.master.update()

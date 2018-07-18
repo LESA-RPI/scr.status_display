@@ -17,7 +17,7 @@ class TempChart:
         self.CO2      = [0 for x in range(98)]
         self.GlobalTime = time.time()
         
-        self.TempChart_Frame = LabelFrame(master, bg = 'white', text = '24 hours temperature and self.CO2 readings', font = ("Helvetica", 16))
+        self.TempChart_Frame = LabelFrame(master, bg = 'white', text = '24 hours temperature and CO2 readings', font = ("Helvetica", 16))
         self.TempChart_Frame.pack(side = LEFT, anchor = W, padx = 10, pady = 10)
         
         self.w = Canvas(self.TempChart_Frame, width=1050, height=250, bg='white', bd=0, highlightthickness=0)
@@ -36,7 +36,7 @@ class TempChart:
         self.w.create_line(1000,  30, 1005, 45, width = 2)
     
         self.w.create_text(10, 125, font="times 12", text = 'Temperature (%cC)'%unichr(176), fill = 'red', angle=90)
-        self.w.create_text(1035, 125, font="times 12", text = 'self.CO2 (ppm)', fill = 'green', angle=90)
+        self.w.create_text(1035, 125, font="times 12", text = 'CO2 (ppm)', fill = 'green', angle=90)
 
         
         # create little lines accros x
