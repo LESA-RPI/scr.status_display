@@ -62,7 +62,9 @@ class TempChart:
             self.Temp[x] = self.w.create_oval( 50+(xx*x)-4, yy-4, 50+(xx*x)+4, yy+4, fill = 'red', width = 0)
             self.CO2[x] = self.w.create_oval( 50+(xx*x)-4, ii-4, 50+(xx*x)+4, ii+4, fill = 'green', width = 0)
         
-    def UpdateTemp(self, T, CO):
+    def update(self, T, CO):
+
+        print(T, CO)
 
         if (time.time() - self.GlobalTime) > 900: #900 
             self.GlobalTime = time.time()

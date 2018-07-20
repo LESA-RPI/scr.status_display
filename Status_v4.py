@@ -33,7 +33,7 @@ def SetTOF():
 
 @app.route('/Status_TempChart', methods=['POST'])
 def SetTempChart():
-    return updateModule('tempchart', ['data'])
+    return updateModule('tempchart', ['temp', 'co2'])
 
 def updateModule(name, items):
     arguments = [request.json[item] for item in items]
