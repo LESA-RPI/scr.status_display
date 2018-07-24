@@ -10,7 +10,6 @@ from Status_Display import *
 
 app = Flask(__name__)
 display = Display()
-processes = {}
 
 @app.route('/Status_Weather', methods=['POST'])
 def SetWeather():
@@ -40,14 +39,12 @@ def SetTempChart():
 def ScriptRun():
     script_name = request.json["name"]
     os.system('python scripts/' + script_name + '.py &')
-    processes[script_name] = os.environ["!"]
     return jsonify(request.json), 202
 
 @app.route('/Script_Kill', methods=['POST'])
 def ScriptKill():
     script_name = request.json["name"]
-    os.system('kill $'+processes[script_name])
-    processes.pop(script_name, None)
+    os.system('pkill -f ' + processes[script_name] + '.py')
     return jsonify(request.json), 202
 
 def updateModule(name, items):
