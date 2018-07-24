@@ -4,12 +4,13 @@ Description: Representing status information by using flask request
 Date: 2/27/2017 updated 7/16/2018
 '''
 
-import time, json
+import time, json, os
 from flask import Flask, jsonify, request, abort
 from Status_Display import *
 
 app = Flask(__name__)
 display = Display()
+processes = {}
 
 @app.route('/Status_Weather', methods=['POST'])
 def SetWeather():
@@ -35,6 +36,20 @@ def SetTOF():
 def SetTempChart():
     return updateModule('tempchart', ['temp', 'co2'])
 
+@app.route('/Script_Run', methods=['POST'])
+def ScriptRun():
+    script_name = request.json["name"]
+    os.system('python scripts/' + script_name + '.py &')
+    processes[script_name] = os.environ["!"]
+    return jsonify(request.json), 202
+
+@app.route('/Script_Kill', methods=['POST'])
+def ScriptKill():
+    script_name = request.json["name"]
+    os.system('kill $'+processes[script_name])
+    processes.pop(script_name, None)
+    return jsonify(request.json), 202
+
 def updateModule(name, items):
     arguments = [request.json[item] for item in items]
     display.frames[name].update(*arguments)
@@ -42,4 +57,4 @@ def updateModule(name, items):
 
 if __name__ == '__main__':
     display.root.update()
-    app.run(host="127.0.0.1", port = 5000)
+    app.run(host="192.168.0.61", port = 5000)

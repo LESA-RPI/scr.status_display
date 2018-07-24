@@ -1,5 +1,5 @@
 import sys, time, os
-sys.path.append(os.path.join(os.path.dirname(sys.path[0]), "lights"))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../catkin_ws/src/scr_control/scripts/lights"))
 import SCR_OctaLight_client as light_control
 import multiprocessing
 
