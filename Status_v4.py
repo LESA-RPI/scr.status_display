@@ -57,4 +57,4 @@ def updateModule(name, items):
 
 if __name__ == '__main__':
     display.root.update()
-    app.run(host="192.168.0.61", port = 5000)
+    app.run(host="192.168.0.2", port = 5000)
