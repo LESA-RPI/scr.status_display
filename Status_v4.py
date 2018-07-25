@@ -44,7 +44,7 @@ def ScriptRun():
 @app.route('/Script_Kill', methods=['POST'])
 def ScriptKill():
     script_name = request.json["name"]
-    os.system('pkill -f ' + processes[script_name] + '.py')
+    os.system('pkill -f ' + script_name + '.py')
     return jsonify(request.json), 202
 
 def updateModule(name, items):
