@@ -2,7 +2,7 @@ from get_data import *
 
 start = 0
 stop = 10000
-step = 100
+step = 25
 
 def circ():
 	
