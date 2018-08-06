@@ -80,18 +80,19 @@ class COS:
         self.w3.itemconfig(self.Blind_value[0][0], text ="%d%%; %d%c"%(la, int(ta*1.8), unichr(176)))
         self.w4.itemconfig(self.Blind_value[1][0], text ="%d%%; %d%c"%(lb, int(tb*1.8), unichr(176)))
         
-    def Plot_COS(self, B):
+    def update(self, B):
         B = np.asarray(B)
-        B = B.reshape(5, 14, 3)
+        # B = B.reshape(14, 5, 3)
         #A = B
         plt.cla()
         plt.clf()
         B=B[::-1]
         B = B[:,::-1]
 
-        for x in range (0, 14):
-            for k in range (0, 5):
-                for l in range (0, 3):
-                    A[k][x][l] = B[4-k][13-x][l]
+        #for x in range (0, 14):
+        #    for k in range (0, 5):
+        #        for l in range (0, 3):
+        #            A[k][x][l] = B[4-k][13-x][l]
+
         plt.imshow(B, interpolation = 'none')
         self.canvas_COS.draw()

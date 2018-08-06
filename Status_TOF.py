@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import numpy as np
 
 class TOF:
     def __init__(self, master):
@@ -29,6 +30,7 @@ class TOF:
 
         plt.cla()
         plt.clf()
+	B = np.flipud(np.fliplr(np.asarray(B)))
         plt.imshow(B, interpolation = 'none', cmap = 'jet_r')
         self.canvas_TOF.draw()
 
