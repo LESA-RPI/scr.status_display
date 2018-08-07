@@ -85,7 +85,7 @@ class HVAC:
 		for i in range(7):
 			self.w.itemconfigure(self.HVAC_sens_val[i], text = new_vals[i])
 		for i in range(2):
-			self.w.itemconfigure(self.Heater_value[i], text = ep[i+2])
-			self.w.itemconfigure(self.HVAC_value[i],   text = ep[i])
+			self.w.itemconfigure(self.Heater_value[i], text = ep[i])
+			self.w.itemconfigure(self.HVAC_value[i],   text = ep[i+2])
 
 		self.master.update()

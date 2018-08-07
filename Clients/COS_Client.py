@@ -90,7 +90,6 @@ def send_COS_status(input):
 
 	for i in range(3):
 		A[i] = np.reshape(A[i], [5, 14], 'F')
-
 	
 	for i in range(5):
 		for j in range(3):
