@@ -38,7 +38,10 @@ def SetTempChart():
 @app.route('/Script_Run', methods=['POST'])
 def ScriptRun():
     script_name = request.json["name"]
-    os.system('python scripts/' + script_name + '.py &')
+    script_arg = ""
+    if "arg" in request.json:
+         script_arg = str(request.json["arg"])
+    os.system('python scripts/' + script_name + '.py ' + script_arg + '&')
     return jsonify(request.json), 202
 
 @app.route('/Script_Kill', methods=['POST'])
