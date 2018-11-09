@@ -1,10 +1,11 @@
 import libtmux
 
+START_DIR = "~/scr.status_display"
+
 class Window():
 
-	START_DIR = "~/scr.status_display"
 
-	def __init__(self, name, command, start_dir = "~/catkin_ws"):
+	def __init__(self, name, command, start_dir = START_DIR):
 		self.name = name
 		self.command = command
 		self.start_dir = start_dir
@@ -24,12 +25,12 @@ class Window():
 
 SESSION_NAME = "Status"
 
-WINDOWS = [Window("client_cos",     "python Clients/COS_Client.py"),
+WINDOWS = [Window("display", "python Status_v4.py"),
+		   Window("client_cos",     "python Clients/COS_Client.py"),
 	       Window("client_hvac",    "python Clients/HVAC_Client.py"),
 	       Window("client_tof",     "python Clients/TOF_Client.py"),
 	       Window("client_power",   "python Clients/Power_Client.py"),
 	       Window("client_weather", "python Clients/Weather_Client.py"),
-	       Window("display", "python Status_v4.py"),
 		  ]
 '''
 ------------------------------------
