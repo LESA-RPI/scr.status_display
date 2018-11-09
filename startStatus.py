@@ -1,4 +1,4 @@
-import libtmux
+import libtmux, time
 
 START_DIR = "~/scr.status_display"
 
@@ -25,8 +25,7 @@ class Window():
 
 SESSION_NAME = "Status"
 
-WINDOWS = [Window("display", "python Status_v4.py"),
-		   Window("client_cos",     "python Clients/COS_Client.py"),
+WINDOWS = [Window("client_cos",     "python Clients/COS_Client.py"),
 	       Window("client_hvac",    "python Clients/HVAC_Client.py"),
 	       Window("client_tof",     "python Clients/TOF_Client.py"),
 	       Window("client_power",   "python Clients/Power_Client.py"),
@@ -49,6 +48,12 @@ if __name__ == "__main__":
 	session = server.new_session(attach = False,
 								 session_name = SESSION_NAME,
 								)
+
+	display = Window("display", "python Status_v4.py")
+	display.create(session)
+
+	# Display Server must start before running client scripts
+	time.sleep(10)
 
 	for w in WINDOWS:
 		w.create(session)
