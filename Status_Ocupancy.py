@@ -45,7 +45,7 @@ class OCCUPANCY:
     	self.panel = Label(self.Ocup_Icon, image = self.ImgIcon, borderwidth=0)
     	self.panel.pack()
     	
-    def SetOcu(self, Total, Sitting, Standing, Lying): 
+    def update(self, Total, Sitting, Standing, Lying): 
         self.val_Tot.set('Total number of people: %d'   % Total)
         self.val_Sit.set('Number of standing people: %d'% Standing)
         self.val_Sta.set('Number of sitting people: %d' % Sitting)
