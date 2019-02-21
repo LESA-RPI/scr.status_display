@@ -23,12 +23,15 @@ def time_converter(TT):
 if __name__ == "__main__":
     while True:
         owm = OWM('f38bad7ebd2079684d1bbe9fce79b11a')
-        obs = owm.weather_at_coords(42.729173,-73.677731)
-        w = obs.get_weather()
-        post_request('Status_Weather', { "temp":     data_organizer(w)['temp'],
+	try:
+        	obs = owm.weather_at_coords(42.729173,-73.677731)
+        	w = obs.get_weather()
+        	post_request('Status_Weather', { "temp":     data_organizer(w)['temp'],
                                          "pressure": data_organizer(w)['pressure'],
                                          "humidity": data_organizer(w)['humidity'],
                                          "sunset":   data_organizer(w)['sunset'],
                                          "sunrise":  data_organizer(w)['sunrise'],
                                          "icon":     data_organizer(w)['icon']})    
-        time.sleep(1)
+        except:
+		print "error reading weather information"
+	time.sleep(1)

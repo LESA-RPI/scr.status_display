@@ -5,6 +5,7 @@ if __name__ == "__main__":
     while True:
 
         temps = hvac_control.get_temp()
+	print temps
         eps = hvac_control.get_ep()
         humidity = hvac_control.get_rh()
         co2 = hvac_control.get_co2()
