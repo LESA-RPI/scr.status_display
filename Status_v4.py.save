@@ -41,12 +41,16 @@ def SetOcupancy():
 
 @app.route('/Status_Lights', methods=['POST'])
 def SetLights():
-    items = ['light', 'val']
-    arguments = [request.json[item] for item in items]
+#    items = ['light']
+#    print items
+#    arguments = [request.json[item] for item in items]
+    return updateModule('light',['Total', 'Standing', 'Sitting', 'Lying'])
+
+#    arguments = request.json[items]
     
-    display.frames['hvac'].updateLight(*arguments)
+    #display.frames['hvac'].updateLights(*arguments)
     #return jsonify(request.json), 202
-    return jsonify(request.json), 202
+    return arguments
 
 @app.route('/Script_Run', methods=['POST'])
 def ScriptRun():

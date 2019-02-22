@@ -5,6 +5,7 @@ import matplotlib.image as mpimg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
+import CCT_TO_RGB
 
 class HVAC:
 	def __init__(self, master):
@@ -12,7 +13,7 @@ class HVAC:
 
 		# Member variables and HVAC objects
 		self.CeilingPlates = [[0 for x in range( 5)] for y in range(14)]
-		self.Lights		   = [ 0 for x in range(10)]
+		self.Lights	   = [ 0 for x in range(10)]
 		self.Heaters	   = [[0 for x in range( 2)] for y in range( 2)]
 		self.Heater_value  = [ 0 for x in range( 2)]
 		self.HVAC_HE	   = [ 0 for x in range (2)]
@@ -87,5 +88,20 @@ class HVAC:
 		for i in range(2):
 			self.w.itemconfigure(self.Heater_value[i], text = ep[i])
 			self.w.itemconfigure(self.HVAC_value[i],   text = ep[i+2])
+		#Diagram related
+		val = ep[3].split('%')
+		print "testas"
+		print ep[3]
+		print ("reiksme yra %f" % float(val[0]))
+		self.w.coords(self.HVAC_AC[0], 400, 100, float(val[0])*1.5+400, 140)
+		self.w.coords(self.HVAC_AC[1], float(val[0])*1.5+400, 100, 550, 140)
 
 		self.master.update()
+
+	def updateLight(self, light, val):
+		if (light >= 0) and (light < 10): 
+			self.w.itemconfig(self.Lights[light], fill = CCT_TO_RGB.convert_K_to_RGB(val))
+			self.master.update()
+			return 0
+		return 1		
+#self.master.update()
