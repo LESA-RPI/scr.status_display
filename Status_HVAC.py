@@ -43,6 +43,10 @@ class HVAC:
 		self.Heaters[0][1] = self.w.create_rectangle(600, 225, 700, 250)
 		self.Heaters[1][0] = self.w.create_rectangle(0,  25, 25, 125)
 		self.Heaters[1][1] = self.w.create_rectangle(0, 125, 25, 225)
+		self.w.itemconfig(self.Heaters[0][0], fill = 'orange red')
+		self.w.itemconfig(self.Heaters[0][1], fill = 'red')
+		self.w.itemconfig(self.Heaters[1][0], fill = 'orange red')
+		self.w.itemconfig(self.Heaters[1][1], fill = 'red')
 	
 		self.Heater_value[0] = self.w.create_text(700, 240, font="Times 15 bold", text="XX%")
 		self.Heater_value[1] = self.w.create_text(10,  125, font="Times 15 bold", text="XX%", angle=90)
@@ -89,10 +93,22 @@ class HVAC:
 			self.w.itemconfigure(self.Heater_value[i], text = ep[i])
 			self.w.itemconfigure(self.HVAC_value[i],   text = ep[i+2])
 		#Diagram related
+
+		val = ep[0].split('%')
+		self.w.coords(self.Heaters[0][1], 600, 225, float(val[0])*2+600, 250)
+		self.w.coords(self.Heaters[0][0], float(val[0])*2+600, 225, 800, 250)
+
+		val = ep[1].split('%')
+		self.w.coords(self.Heaters[1][0], 0, 25, 25, 225-float(val[0])*2)
+		self.w.coords(self.Heaters[1][1], 0, 225-float(val[0])*2, 25, 225)
+
+
+		val = ep[2].split('%')
+		self.w.coords(self.HVAC_HE[0], 250, 100, float(val[0])*1.5+250, 140)
+		self.w.coords(self.HVAC_HE[1], float(val[0])*1.5+250, 100, 400, 140)
+
+
 		val = ep[3].split('%')
-		print "testas"
-		print ep[3]
-		print ("reiksme yra %f" % float(val[0]))
 		self.w.coords(self.HVAC_AC[0], 400, 100, float(val[0])*1.5+400, 140)
 		self.w.coords(self.HVAC_AC[1], float(val[0])*1.5+400, 100, 550, 140)
 
